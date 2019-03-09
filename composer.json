@@ -1,0 +1,19 @@
+{
+    "name": "wscore/ask",
+    "description": "a simple questionnaire builder for html form and validator.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "asaokamei",
+            "email": "asao.kamei@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "WScore\\Ask\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}
