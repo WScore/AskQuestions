@@ -52,9 +52,21 @@ interface ElementInterface
     public function options();
 
     /**
+     * @param string $value
+     * @return bool
+     */
+    public function isOptionDefined($value);
+
+    /**
      * @return string[]
      */
     public function getRawOptions();
+
+    /**
+     * @param string $value
+     * @return string
+     */
+    public function getOptionLabel($value);
 
     /**
      * @param string $value

@@ -1,9 +1,14 @@
 <?php
 namespace WScore\Ask\Validator;
 
+use WScore\Ask\Interfaces\ElementInterface;
+
 class Result
 {
-    private $name;
+    /**
+     * @var ElementInterface
+     */
+    private $element;
 
     private $value;
 
@@ -13,23 +18,23 @@ class Result
 
     /**
      * Result constructor.
-     * @param string $name
+     * @param ElementInterface $element
      * @param string $value
      */
-    private function __construct($name, $value)
+    private function __construct(ElementInterface $element, $value)
     {
-        $this->name = $name;
+        $this->element = $element;
         $this->value = $value;
     }
 
     /**
-     * @param string $name
+     * @param ElementInterface $element
      * @param string $value
      * @return Result
      */
-    public static function success($name, $value)
+    public static function success(ElementInterface $element, $value)
     {
-        $self = new self($name, $value);
+        $self = new self($element, $value);
         $self->isValid = true;
         $self->message = null;
 
@@ -37,14 +42,14 @@ class Result
     }
 
     /**
-     * @param string $name
+     * @param ElementInterface $element
      * @param string|string[] $value
      * @param string $message
      * @return Result
      */
-    public static function fail($name, $value, $message)
+    public static function fail(ElementInterface $element, $value, $message)
     {
-        $self = new self($name, $value);
+        $self = new self($element, $value);
         $self->isValid = false;
         $self->message = $message;
 
@@ -54,17 +59,41 @@ class Result
     /**
      * @return string
      */
-    public function getName()
+    public function name()
     {
-        return $this->name;
+        return $this->element->name();
+    }
+
+    /**
+     * @return string
+     */
+    public function label()
+    {
+        return $this->element->label();
     }
 
     /**
      * @return string|string[]
      */
-    public function getValue()
+    public function value()
     {
         return $this->value;
+    }
+
+    /**
+     * @param string $conn
+     * @return string
+     */
+    public function showValue($conn = "\n")
+    {
+        $display = [];
+        $values = (array) $this->value;
+        foreach ($values as $value) {
+            $display[] = $this->element->isOptionDefined($value)
+                ? $this->element->getOptionLabel($value)
+                : $value;
+        }
+        return implode($conn, $display);
     }
 
     /**

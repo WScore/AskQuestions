@@ -48,7 +48,7 @@ class Validation
             if (!$result->isValid()) {
                 $this->isValid = false;
             }
-            $this->results[] = $result;
+            $this->results[$name] = $result;
         }
     }
 
@@ -85,22 +85,24 @@ class Validation
         return $this->results;
     }
 
-
+    /**
+     * @return array
+     */
     public function getData()
     {
         $data = [];
         foreach ($this->results as $name => $result) {
-            $data[$name] = $result->getValue();
+            $data[$name] = $result->value();
         }
         return $data;
     }
 
-    public function getStringValue($name, $conn = '<br>')
+    /**
+     * @param string $name
+     * @return Result|null
+     */
+    public function getResult($name)
     {
-        $result = isset($this->results[$name]) ? $this->results[$name]: null;
-        if (!$result) return '';
-        $value = $result->getValue();
-        if (is_array($value)) return implode($conn, $value);
-        return $value;
+        return isset($this->results[$name]) ? $this->results[$name]: null;
     }
 }

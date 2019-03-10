@@ -26,7 +26,7 @@ class ArrayValidator
     protected function makeFail($message)
     {
         $message = $this->element->getMessage() ?: $message;
-        return Result::fail($this->element->name(), null, $message);
+        return Result::fail($this->element, null, $message);
     }
 
     /**
@@ -55,7 +55,7 @@ class ArrayValidator
         if ($result = $this->checkOptions($value)) {
             return $result;
         }
-        return Result::success($this->element->name(), $value);
+        return Result::success($this->element, $value);
     }
 
     /**
@@ -68,7 +68,7 @@ class ArrayValidator
         if ($this->element->isRequired()) {
             return $this->makeFail('必須項目です');
         }
-        return Result::success($this->element->name(), null);
+        return Result::success($this->element, null);
     }
 
     /**
@@ -77,10 +77,9 @@ class ArrayValidator
      */
     protected function checkOptions($value)
     {
-        $options = $this->element->getRawOptions();
-        if (empty($options)) return null;
+        if (!$this->element->hasOptions()) return null;
         foreach($value as $v) {
-            if (!isset($options[$v])) {
+            if (!$this->element->isOptionDefined($v)) {
                 return $this->makeFail('選択できない値が含まれています');
             }
         }

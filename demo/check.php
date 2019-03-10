@@ -3,9 +3,11 @@ require_once __DIR__ . '/ask.inc.php';
 
 $ask = buildAskForms();
 $validator = $ask->buildValidator($_POST);
+$results = $validator->getResults();
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -18,6 +20,14 @@ $validator = $ask->buildValidator($_POST);
 <div class="container">
     <h1>Ask Forms<span class="small"> /Checks</span></h1>
     <hr>
+    <table class="table">
+        <?php foreach ($results as $result) :?>
+        <tr>
+            <th><?= $result->label(); ?></th>
+            <td><?= $result->showValue('<br>'); ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
     <h2>Data var dump</h2>
     <pre><?php var_dump($validator->getData()); ?></pre>
     <h2>$_POST var dump</h2>

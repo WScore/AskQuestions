@@ -26,7 +26,7 @@ class TextValidator
     protected function makeFail($message)
     {
         $message = $this->element->getMessage() ?: $message;
-        return Result::fail($this->element->name(), null, $message);
+        return Result::fail($this->element, null, $message);
     }
 
     /**
@@ -54,7 +54,7 @@ class TextValidator
         if ($result = $this->checkOptions($value)) {
             return $result;
         }
-        return Result::success($this->element->name(), $value);
+        return Result::success($this->element, $value);
     }
 
     /**
@@ -67,7 +67,7 @@ class TextValidator
         if ($this->element->isRequired()) {
             return $this->makeFail('必須項目です');
         }
-        return Result::success($this->element->name(), null);
+        return Result::success($this->element, null);
     }
 
     /**
@@ -89,9 +89,8 @@ class TextValidator
      */
     protected function checkOptions($value)
     {
-        $options = $this->element->getRawOptions();
-        if (empty($options)) return null;
-        if (isset($options[$value])) return null;
+        if (!$this->element->hasOptions()) return null;
+        if ($this->element->isOptionDefined($value)) return null;
         return $this->makeFail('選択できない値です');
     }
 }

@@ -22,6 +22,7 @@ $forms->setLabelClass('form-label');
     <h1>Ask Forms<span class="small"> /Forms</span></h1>
     <hr>
     <form action="check.php" method="post">
+        <input type="hidden" name="unnecessary" value="value-here">
         <div class="form-group">
             <?php $element = $forms->getElement('name'); ?>
             <?= $element->makeLabel(); ?>

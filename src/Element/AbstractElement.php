@@ -58,11 +58,35 @@ abstract class AbstractElement implements ElementInterface
     }
 
     /**
+     * @param string $value
+     * @return bool
+     */
+    public function isOptionDefined($value)
+    {
+        if (empty($this->options)) {
+            return true;
+        }
+        return isset($this->options[$value]);
+    }
+
+    /**
      * @return string[]
      */
     public function getRawOptions()
     {
         return $this->options;
+    }
+
+    /**
+     * @param string $value
+     * @return string
+     */
+    public function getOptionLabel($value)
+    {
+        if (isset($this->options[$value])) {
+            return $this->options[$value];
+        }
+        return $value;
     }
 
     /**
