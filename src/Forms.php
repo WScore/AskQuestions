@@ -13,12 +13,42 @@ class Forms
     private $elements;
 
     /**
+     * @var string
+     */
+    private $form_class = '';
+
+    /**
+     * @var string
+     */
+    private $label_class = '';
+
+    /**
      * Forms constructor.
      * @param ElementInterface[] $elements
      */
     public function __construct($elements)
     {
         $this->elements = $elements;
+    }
+
+    /**
+     * @param string $class
+     * @return $this
+     */
+    public function setFormClass($class)
+    {
+        $this->form_class = $class;
+        return $this;
+    }
+
+    /**
+     * @param string $class
+     * @return $this
+     */
+    public function setLabelClass($class)
+    {
+        $this->label_class = $class;
+        return $this;
     }
 
     /**
@@ -32,6 +62,9 @@ class Forms
         }
         $element = $this->elements[$name];
 
-        return Builder::form($element);
+        $form = Builder::form($element);
+        $form->setFormClass($this->form_class);
+        $form->setLabelClass($this->label_class);
+        return $form;
     }
 }

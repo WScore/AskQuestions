@@ -12,7 +12,7 @@ class Builder
      */
     public static function form(ElementInterface $element)
     {
-        $class = $element->getType() . 'Form';
+        $class = __NAMESPACE__ . '\\' . $element->getType() . 'Form';
         if (!class_exists($class)) {
             throw new \InvalidArgumentException();
         }
