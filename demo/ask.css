@@ -1,0 +1,11 @@
+body {
+    color: #666666;
+    background-color: #fcfcfc;
+}
+h1 {
+    color: #333333;
+}
+label.form-label {
+    font-weight: bold;
+    color: #496282;
+}
