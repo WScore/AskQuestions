@@ -89,8 +89,8 @@ class Validation
     public function getData()
     {
         $data = [];
-        foreach ($this->results as $result) {
-            $data[] = $result->getValue();
+        foreach ($this->results as $name => $result) {
+            $data[$name] = $result->getValue();
         }
         return $data;
     }

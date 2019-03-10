@@ -3,7 +3,7 @@ namespace WScore\Ask\Validator;
 
 use WScore\Ask\Interfaces\ElementInterface;
 
-class ArrayValidator
+class TextValidator
 {
     /**
      * @var ElementInterface
@@ -30,26 +30,25 @@ class ArrayValidator
     }
 
     /**
-     * @param string[] $raw_value
+     * @param string $value
      * @return Result
      */
-    public function validate($raw_value)
+    public function validate($value)
     {
-        $value = [];
-        foreach($raw_value as $v) {
-            $v = trim($v);
-            if ($v) $value[] = $v;
-        }
+        $value = (string) $value;
         return $this->validateValue($value);
     }
 
     /**
-     * @param string[] $value
+     * @param string $value
      * @return Result
      */
     protected function validateValue($value)
     {
         if ($result = $this->checkRequired($value)) {
+            return $result;
+        }
+        if ($result = $this->checkValue($value)) {
             return $result;
         }
         if ($result = $this->checkOptions($value)) {
@@ -59,7 +58,7 @@ class ArrayValidator
     }
 
     /**
-     * @param string|string[] $value
+     * @param string $value
      * @return Result|null
      */
     protected function checkRequired($value)
@@ -72,18 +71,27 @@ class ArrayValidator
     }
 
     /**
-     * @param string[] $value
+     * @param string $value
+     * @return Result|null
+     */
+    protected function checkValue($value)
+    {
+        $correct_value = (string) $this->element->value();
+        if ($correct_value && $correct_value !== $value) {
+            return $this->makeFail('入力は選択できません');
+        }
+        return null;
+    }
+
+    /**
+     * @param string $value
      * @return Result|null
      */
     protected function checkOptions($value)
     {
-        $options = $this->element->options();
+        $options = $this->element->getRawOptions();
         if (empty($options)) return null;
-        foreach($value as $v) {
-            if (!isset($options[$v])) {
-                return $this->makeFail('選択できない値が含まれています');
-            }
-        }
-        return null;
+        if (isset($options[$value])) return null;
+        return $this->makeFail('選択できない値です');
     }
 }

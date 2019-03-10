@@ -21,7 +21,7 @@ $forms->setLabelClass('form-label');
 <div class="container">
     <h1>Ask Forms<span class="small"> /Forms</span></h1>
     <hr>
-    <form action="">
+    <form action="check.php" method="post">
         <div class="form-group">
             <?php $element = $forms->getElement('name'); ?>
             <?= $element->makeLabel(); ?>
