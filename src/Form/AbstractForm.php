@@ -121,6 +121,8 @@ abstract class AbstractForm implements FormInterface
             ? 'required'
             : '';
         $id = $this->makeAttr('id', $this->makeId());
-        return "<input type='{$type}' {$name} {$id} {$required} {$class}>";
+        $holder = $this->element->placeholder();
+        $holder = $holder ? $this->makeAttr('placeholder', $holder) : '';
+        return "<input type='{$type}' {$name} {$id} {$required} {$class} {$holder}>";
     }
 }

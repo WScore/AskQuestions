@@ -68,4 +68,15 @@ interface ElementInterface
      * @return string
      */
     public function getMessage();
+
+    /**
+     * @param string $placeholder
+     * @return self
+     */
+    public function setPlaceholder($placeholder);
+
+    /**
+     * @return string
+     */
+    public function placeholder();
 }

@@ -11,6 +11,7 @@ abstract class AbstractElement implements ElementInterface
     protected $options = [];
     protected $value = null;
     protected $message = '';
+    protected $placeholder = '';
 
     /**
      * @return string
@@ -100,5 +101,23 @@ abstract class AbstractElement implements ElementInterface
     public function getMessage()
     {
         return $this->message;
+    }
+
+    /**
+     * @param string $placeholder
+     * @return AbstractElement
+     */
+    public function setPlaceholder($placeholder)
+    {
+        $this->placeholder = $placeholder;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function placeholder()
+    {
+        return $this->placeholder;
     }
 }

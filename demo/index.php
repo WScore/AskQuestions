@@ -26,8 +26,9 @@ $forms->setLabelClass('form-label');
     <h1>Ask Forms<span class="small"> /HTML Forms</span></h1>
     <form action="">
         <div class="form-group">
-            <?= $forms->getElement('name')->makeLabel(); ?>
-            <?= $forms->getElement('name')->makeForm(); ?>
+            <?php $name = $forms->getElement('name'); ?>
+            <?= $name->makeLabel(); ?>
+            <?= $name->makeForm(); ?>
         </div>
     </form>
 </div>
