@@ -58,6 +58,14 @@ abstract class AbstractElement implements ElementInterface
     }
 
     /**
+     * @return string[]
+     */
+    public function getRawOptions()
+    {
+        return $this->options;
+    }
+
+    /**
      * @param bool $required
      * @return $this|ElementInterface
      */

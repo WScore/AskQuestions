@@ -52,6 +52,11 @@ interface ElementInterface
     public function options();
 
     /**
+     * @return string[]
+     */
+    public function getRawOptions();
+
+    /**
      * @param string $value
      * @param string $name
      * @return $this

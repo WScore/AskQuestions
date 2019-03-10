@@ -11,6 +11,12 @@ function buildAskForms()
     $ask->addText('name', 'Your Name')
         ->setPlaceholder('Mr. Test Taro');
 
+    $ask->addSelect('preference', 'Prefers')
+        ->addOption('radio', 'Radio Buttons')
+        ->addOption('select', 'Dropdown List')
+        ->addOption('check', 'Checkboxes')
+        ->setPlaceholder('select one...');
+
     $ask->addRadio('happy', 'Are You Happy?')
         ->addOption('yes', 'Yes!')
         ->addOption('no', 'noop...');

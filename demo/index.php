@@ -27,6 +27,13 @@ $forms->setLabelClass('form-label');
             <?= $element->makeLabel(); ?>
             <?= $element->makeForm(); ?>
         </div>
+
+        <div class="form-group">
+            <?php $element = $forms->getElement('preference'); ?>
+            <?= $element->makeLabel(); ?>
+            <?= $element->addFormClass('col-sm-6')->makeForm(); ?>
+        </div>
+
         <?php $element = $forms->getElement('happy'); ?>
         <div class="form-group">
             <?= $element->makeLabel(); ?>

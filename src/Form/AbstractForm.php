@@ -69,6 +69,16 @@ abstract class AbstractForm implements FormInterface
         return $this;
     }
 
+    /**
+     * @param string $class
+     * @return $this|FormInterface
+     */
+    public function addFormClass($class)
+    {
+        $this->form_class .= ' ' . $class;
+        return $this;
+    }
+
     protected function makeAttr($name, $value)
     {
         return "{$name}=\"{$value}\"";
