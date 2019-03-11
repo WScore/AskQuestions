@@ -27,6 +27,16 @@ abstract class AbstractForm implements FormInterface
     protected $style;
 
     /**
+     * @var bool
+     */
+    protected $isOptionElement = false;
+
+    /**
+     * @var int
+     */
+    protected $optionIndex = 0;
+
+    /**
      * Form constructor.
      * @param ElementInterface $element
      */
@@ -46,10 +56,14 @@ abstract class AbstractForm implements FormInterface
     public function getOptions()
     {
         $elements = [];
+        $index = 0;
         foreach ($this->element->options() as $option) {
             $element = clone $this;
             $element->element = $option;
-            $elements[] = $element;
+            $element->isOptionElement = true;
+            $element->optionIndex = $index;
+            $elements[$index] = $element;
+            $index++;
         }
         return $elements;
     }
