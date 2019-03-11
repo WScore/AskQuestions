@@ -39,6 +39,12 @@ interface FormInterface
     public function addFormClass($class);
 
     /**
+     * @param string $style
+     * @return self
+     */
+    public function setFormStyle($style);
+
+    /**
      * @return string
      */
     public function makeLabel();

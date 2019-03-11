@@ -11,7 +11,9 @@ class SelectForm extends AbstractForm
             ? 'required'
             : '';
         $id = $this->makeAttr('id', $this->makeId());
-        $html = "<select {$name} {$id} {$required} {$class}>";
+        $style = $this->style ? "style=\"{$this->style}\"": '';
+
+        $html = "<select {$name} {$id} {$required} {$class} {$style}>";
         $html .= $this->makeOptions();
         $html .= '</select>';
         return $html;

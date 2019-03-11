@@ -22,6 +22,11 @@ abstract class AbstractForm implements FormInterface
     protected $form_class = '';
 
     /**
+     * @var string
+     */
+    protected $style;
+
+    /**
      * Form constructor.
      * @param ElementInterface $element
      */
@@ -76,6 +81,16 @@ abstract class AbstractForm implements FormInterface
     public function addFormClass($class)
     {
         $this->form_class .= ' ' . $class;
+        return $this;
+    }
+
+    /**
+     * @param string $style
+     * @return self
+     */
+    public function setFormStyle($style)
+    {
+        $this->style = $style;
         return $this;
     }
 
@@ -135,6 +150,8 @@ abstract class AbstractForm implements FormInterface
         $holder = $holder ? $this->makeAttr('placeholder', $holder) : '';
         $value = $this->element->value();
         $value = $value ? $this->makeAttr('value', $value): '';
-        return "<input type='{$type}' {$name} {$id} {$required} {$class} {$holder} {$value}>";
+        $style = $this->style ? "style=\"{$this->style}\"": '';
+
+        return "<input type='{$type}' {$name} {$id} {$required} {$class} {$holder} {$value} {$style}>";
     }
 }
