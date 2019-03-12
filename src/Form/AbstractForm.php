@@ -121,6 +121,7 @@ abstract class AbstractForm implements FormInterface
 
     protected function makeAttr($name, $value)
     {
+        $value = htmlspecialchars($value, ENT_QUOTES);
         return "{$name}=\"{$value}\"";
     }
 

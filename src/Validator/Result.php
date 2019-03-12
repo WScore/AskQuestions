@@ -93,7 +93,7 @@ class Result
                 ? $this->element->getOptionLabel($value)
                 : $value;
         }
-        return implode($conn, $display);
+        return htmlspecialchars(implode($conn, $display), ENT_QUOTES);
     }
 
     /**
