@@ -11,6 +11,11 @@ namespace WScore\Ask\Interfaces;
 interface FormInterface
 {
     /**
+     * @return ElementInterface
+     */
+    public function getElement();
+
+    /**
      * @return bool
      */
     public function hasOptions();

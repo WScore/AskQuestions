@@ -45,6 +45,17 @@ abstract class AbstractForm implements FormInterface
         $this->element = $element;
     }
 
+    /**
+     * @return ElementInterface
+     */
+    public function getElement()
+    {
+        return $this->element;
+    }
+
+    /**
+     * @return bool
+     */
     public function hasOptions()
     {
         return $this->element->hasOptions();
