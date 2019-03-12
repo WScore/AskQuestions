@@ -10,7 +10,15 @@ use WScore\Ask\Interfaces\ElementInterface;
 
 class AskModel
 {
+    /**
+     * @var ElementInterface[]
+     */
     private $data = [];
+
+    /**
+     * @var callable|\Closure
+     */
+    private $validator;
 
     /**
      * @param string $name
@@ -89,6 +97,19 @@ class AskModel
      */
     public function buildValidator($input)
     {
-        return new Validation($this->data, $input);
+        return new Validation($this->data, $input, $this->validator);
+    }
+
+    /**
+     * sets a validator for validating inputs after
+     * all other validations are done.
+     *
+     * $validator = function(Validation $validator) {};
+     *
+     * @param \Closure|callable $validator
+     */
+    public function setValidator(\Closure $validator)
+    {
+        $this->validator = $validator;
     }
 }

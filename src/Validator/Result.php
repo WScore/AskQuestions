@@ -21,7 +21,7 @@ class Result
      * @param ElementInterface $element
      * @param string $value
      */
-    private function __construct(ElementInterface $element, $value)
+    private function __construct($element, $value)
     {
         $this->element = $element;
         $this->value = $value;
@@ -29,10 +29,10 @@ class Result
 
     /**
      * @param ElementInterface $element
-     * @param string $value
+     * @param string|string[] $value
      * @return Result
      */
-    public static function success(ElementInterface $element, $value)
+    public static function success($element, $value)
     {
         $self = new self($element, $value);
         $self->isValid = true;
@@ -47,7 +47,7 @@ class Result
      * @param string $message
      * @return Result
      */
-    public static function fail(ElementInterface $element, $value, $message)
+    public static function fail($element, $value, $message)
     {
         $self = new self($element, $value);
         $self->isValid = false;

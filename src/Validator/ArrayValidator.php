@@ -59,12 +59,12 @@ class ArrayValidator
     }
 
     /**
-     * @param string|string[] $value
+     * @param string[] $value
      * @return Result|null
      */
     protected function checkRequired($value)
     {
-        if ($value) return null;
+        if (!empty($value)) return null;
         if ($this->element->isRequired()) {
             return $this->makeFail('必須項目です');
         }

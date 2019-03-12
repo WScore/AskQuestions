@@ -32,12 +32,16 @@ class Validation
      * Validation constructor.
      * @param ElementInterface[] $elements
      * @param array $inputs
+     * @param null|callable|\Closure $validator
      */
-    public function __construct($elements, array $inputs)
+    public function __construct($elements, array $inputs, $validator = null)
     {
         $this->elements = $elements;
         $this->inputs = $inputs;
         $this->validate($inputs);
+        if ($validator) {
+            $validator($this);
+        }
     }
 
     private function validate($inputs)
@@ -104,5 +108,18 @@ class Validation
     public function getResult($name)
     {
         return isset($this->results[$name]) ? $this->results[$name]: null;
+    }
+
+    /**
+     * @param string $name
+     * @param string|string[] $value
+     * @param string $message
+     * @return $this
+     */
+    public function setError($name, $value, $message)
+    {
+        $element = isset($this->elements[$name]) ? $this->elements[$name]: null;
+        $this->results[$name] = Result::fail($element, $value, $message);
+        return $this;
     }
 }
