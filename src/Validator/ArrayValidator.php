@@ -2,6 +2,8 @@
 namespace WScore\Ask\Validator;
 
 use WScore\Ask\Interfaces\ElementInterface;
+use WScore\Ask\Locale\LanguageInterface;
+use WScore\Ask\Locale\Locale;
 
 class ArrayValidator
 {
@@ -9,14 +11,20 @@ class ArrayValidator
      * @var ElementInterface
      */
     private $element;
+    /**
+     * @var Locale
+     */
+    private $locale;
 
     /**
      * TextValidator constructor.
+     * @param Locale $locale
      * @param ElementInterface $element
      */
-    public function __construct($element)
+    public function __construct(Locale $locale, $element)
     {
         $this->element = $element;
+        $this->locale = $locale;
     }
 
     /**
@@ -25,7 +33,7 @@ class ArrayValidator
      */
     protected function makeFail($message)
     {
-        $message = $this->element->getMessage() ?: $message;
+        $message = $this->element->getMessage() ?: $this->locale->getMessage($message);
         return Result::fail($this->element, null, $message);
     }
 
@@ -66,7 +74,7 @@ class ArrayValidator
     {
         if (!empty($value)) return null;
         if ($this->element->isRequired()) {
-            return $this->makeFail('必須項目です');
+            return $this->makeFail(LanguageInterface::MESSAGE_REQUIRED);
         }
         return Result::success($this->element, null);
     }
@@ -80,7 +88,7 @@ class ArrayValidator
         if (!$this->element->hasOptions()) return null;
         foreach($value as $v) {
             if (!$this->element->isOptionDefined($v)) {
-                return $this->makeFail('選択できない値が含まれています');
+                return $this->makeFail(LanguageInterface::MESSAGE_NOT_AVAILABLE);
             }
         }
         return null;

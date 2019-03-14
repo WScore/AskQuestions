@@ -6,7 +6,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
  */
 function buildAskForms()
 {
-    $ask = new \WScore\Ask\AskModel();
+    $ask = new \WScore\Ask\AskModel('ja');
 
     $ask->addText('name', '氏　名')
         ->setPlaceholder('テスト　太郎');
@@ -24,8 +24,7 @@ function buildAskForms()
     $ask->addCheckBox('movie', '好きな映画')
         ->addOption('スターウォーズ')
         ->addOption('宇宙戦艦ヤマト')
-        ->addOption('スタートレック')
-        ->required(false);
+        ->addOption('スタートレック');
 
     $ask->addCheckBox('agree', 'agreed', '誰も読まない契約書に同意します。');
 

@@ -2,6 +2,7 @@
 namespace WScore\Ask;
 
 use WScore\Ask\Interfaces\ElementInterface;
+use WScore\Ask\Locale\Locale;
 use WScore\Ask\Validator\ArrayValidator;
 use WScore\Ask\Validator\Result;
 use WScore\Ask\Validator\TextValidator;
@@ -29,13 +30,20 @@ class Validation
     private $inputs;
 
     /**
+     * @var Locale
+     */
+    private $locale;
+
+    /**
      * Validation constructor.
+     * @param Locale $locale
      * @param ElementInterface[] $elements
      * @param array $inputs
      * @param null|callable|\Closure $validator
      */
-    public function __construct($elements, array $inputs, $validator = null)
+    public function __construct(Locale $locale, $elements, array $inputs, $validator = null)
     {
+        $this->locale = $locale;
         $this->elements = $elements;
         $this->inputs = $inputs;
         $this->validate($inputs);
@@ -65,11 +73,11 @@ class Validation
     {
         if ($element->getType() === ElementInterface::TYPE_CHECKBOX && !empty($element->options())) {
             $value = (array) $value;
-            $validator = new ArrayValidator($element);
+            $validator = new ArrayValidator($this->locale, $element);
             return $validator->validate($value);
         }
         $value = (string) $value;
-        $validator = new TextValidator($element);
+        $validator = new TextValidator($this->locale, $element);
         return $validator->validate($value);
     }
 

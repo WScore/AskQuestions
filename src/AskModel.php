@@ -11,6 +11,11 @@ use WScore\Ask\Interfaces\ElementInterface;
 class AskModel
 {
     /**
+     * @var string
+     */
+    private $locale;
+
+    /**
      * @var ElementInterface[]
      */
     private $data = [];
@@ -19,6 +24,15 @@ class AskModel
      * @var callable|\Closure
      */
     private $validator;
+
+    /**
+     * AskModel constructor.
+     * @param string $locale
+     */
+    public function __construct($locale = 'en')
+    {
+        $this->locale = new Locale\Locale($locale);
+    }
 
     /**
      * @param string $name
@@ -97,7 +111,7 @@ class AskModel
      */
     public function buildValidator($input)
     {
-        return new Validation($this->data, $input, $this->validator);
+        return new Validation($this->locale, $this->data, $input, $this->validator);
     }
 
     /**
