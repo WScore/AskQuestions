@@ -120,11 +120,12 @@ abstract class AbstractElement implements ElementInterface
 
     /**
      * @param string $message
-     * @return void|ElementInterface
+     * @return ElementInterface
      */
     public function setMessage($message)
     {
         $this->message = $message;
+        return $this;
     }
 
     /**
