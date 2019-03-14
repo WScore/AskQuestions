@@ -24,8 +24,7 @@ function buildAskForms()
     $ask->addCheckBox('movie', 'Favorite movie')
         ->addOption('starwars', 'Star Wars!')
         ->addOption('yamato', 'Spaceship Yamato!')
-        ->addOption('startrek', 'Star Trek!')
-        ->required(false);
+        ->addOption('startrek', 'Star Trek!');
 
     $ask->addCheckBox('agree', 'agreed', 'whatever the terms you probably will not read.');
 

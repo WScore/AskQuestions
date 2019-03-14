@@ -20,11 +20,23 @@ $results = $validator->getResults();
 <div class="container">
     <h1>Ask Forms<span class="small"> /Checks</span></h1>
     <hr>
+    <?php
+    if ($validator->isValid()) {
+        echo "<div class='alert alert-success'>Success!!!</div>";
+    } else {
+        echo "<div class='alert alert-danger'>Error ???</div>";
+    }
+    ?>
     <table class="table">
         <?php foreach ($results as $result) :?>
         <tr>
             <th><?= $result->label(); ?></th>
-            <td><?= $result->showValue('<br>'); ?></td>
+            <td><?= $result->showValue('<br>'); ?>
+            <?php
+                if (!$result->isValid()) {
+                    echo "<p class='error text-danger' >{$result->getMessage()}</p>";
+                }
+            ?></td>
         </tr>
         <?php endforeach; ?>
     </table>
