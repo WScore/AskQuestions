@@ -73,6 +73,19 @@ class TextValidatorTest extends TestCase
         $this->assertEquals('', $result->showValue('-'));
     }
 
+
+    public function testXssInput()
+    {
+        $validator = $this->buildValidator($this->buildText()->required());
+        $result = $validator->validate('bad<bad>\'bad\"');
+        $this->assertTrue($result->isValid());
+        $this->assertEquals('bad<bad>\'bad\"', $result->value());
+        $this->assertEquals('test-valid', $result->name());
+        $this->assertEquals('test-label', $result->label());
+        $this->assertEquals('', $result->getMessage());
+        $this->assertEquals('bad&lt;bad&gt;&#039;bad\&quot;', $result->showValue('-'));
+    }
+
     public function testInvalidValueInput()
     {
         $validator = $this->buildValidator(
