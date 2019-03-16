@@ -10,6 +10,7 @@ use WScore\Ask\Element\Checkbox;
 use WScore\Ask\Element\Radio;
 use WScore\Ask\Element\Text;
 use WScore\Ask\Interfaces\ElementInterface;
+use WScore\Ask\Locale\LangJa;
 use WScore\Ask\Validator\Result;
 use WScore\Ask\Validator\TextValidator;
 use PHPUnit\Framework\TestCase;
@@ -22,7 +23,7 @@ class TextValidatorTest extends TestCase
      */
     private function buildValidator(ElementInterface $element)
     {
-        return new TextValidator($element);
+        return new TextValidator(new \WScore\Ask\Locale\Locale('ja'), $element);
     }
 
     /**
@@ -114,6 +115,9 @@ class TextValidatorTest extends TestCase
         $this->assertEquals('bad&lt;bad&gt;&#039;bad\&quot;', $result->showValue('-'));
     }
 
+    /**
+     *
+     */
     public function testInvalidValueInput()
     {
         $validator = $this->buildValidator(
@@ -124,7 +128,7 @@ class TextValidatorTest extends TestCase
         $this->assertEquals('', $result->value());
         $this->assertEquals('test-value', $result->name());
         $this->assertEquals('value-label', $result->label());
-        $this->assertEquals('入力は選択できません', $result->getMessage());
+        $this->assertEquals(LangJa::$msg_not_available, $result->getMessage());
         $this->assertEquals('', $result->showValue('-'));
     }
 
@@ -158,7 +162,7 @@ class TextValidatorTest extends TestCase
         $this->assertEquals('', $result->value());
         $this->assertEquals('test-value', $result->name());
         $this->assertEquals('value-label', $result->label());
-        $this->assertEquals('選択できない値です', $result->getMessage());
+        $this->assertEquals(LangJa::$msg_not_selectable, $result->getMessage());
         $this->assertEquals('', $result->showValue('-'));
     }
 }

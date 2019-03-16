@@ -8,6 +8,7 @@
 
 use WScore\Ask\Element\Checkbox;
 use WScore\Ask\Interfaces\ElementInterface;
+use WScore\Ask\Locale\Locale;
 use WScore\Ask\Validator\ArrayValidator;
 use PHPUnit\Framework\TestCase;
 use WScore\Ask\Validator\Result;
@@ -20,7 +21,7 @@ class ArrayValidatorTest extends TestCase
      */
     private function buildValidator(ElementInterface $element)
     {
-        return new ArrayValidator($element);
+        return new ArrayValidator(new Locale('ja'), $element);
     }
 
     /**
