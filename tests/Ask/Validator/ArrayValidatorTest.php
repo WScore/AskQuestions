@@ -83,4 +83,14 @@ class ArrayValidatorTest extends TestCase
         $this->assertEquals('', $result->getMessage());
         $this->assertEquals('', $result->showValue('-'));
     }
+
+    public function testInvalidUtf8Required()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $bad = mb_convert_encoding('表組', 'SJIS-win', 'UTF-8');
+        (new Checkbox('bad-utf8', 'Bad UTF-8'))
+            ->addOption('test1', 'label1')
+            ->addOption($bad, 'label2');
+    }
 }

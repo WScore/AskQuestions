@@ -45,6 +45,9 @@ class TextValidator
      */
     protected function validateValue($value)
     {
+        if (!mb_check_encoding($value, 'UTF-8')) {
+            $value = '';
+        }
         if ($result = $this->checkRequired($value)) {
             return $result;
         }

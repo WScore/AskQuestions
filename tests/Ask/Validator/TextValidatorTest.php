@@ -73,6 +73,34 @@ class TextValidatorTest extends TestCase
         $this->assertEquals('', $result->showValue('-'));
     }
 
+    public function testInvalidUtf8Required()
+    {
+        $bad = mb_convert_encoding('表組', 'SJIS-win', 'UTF-8');
+
+        $validator = $this->buildValidator($this->buildText());
+        $this->assertFalse(mb_check_encoding($bad, 'UTF-8'));
+        $result = $validator->validate($bad);
+        $this->assertFalse($result->isValid());
+        $this->assertEquals('', $result->value());
+        $this->assertEquals('test-valid', $result->name());
+        $this->assertEquals('test-label', $result->label());
+        $this->assertEquals('必須項目です', $result->getMessage());
+        $this->assertEquals('', $result->showValue('-'));
+    }
+
+    public function testInvalidUtf8NotRequired()
+    {
+        $bad = mb_convert_encoding('表組', 'SJIS-win', 'UTF-8');
+
+        $validator = $this->buildValidator($this->buildText()->required(false));
+        $result = $validator->validate($bad);
+        $this->assertTrue($result->isValid());
+        $this->assertEquals('', $result->value());
+        $this->assertEquals('test-valid', $result->name());
+        $this->assertEquals('test-label', $result->label());
+        $this->assertEquals('', $result->getMessage());
+        $this->assertEquals('', $result->showValue('-'));
+    }
 
     public function testXssInput()
     {
