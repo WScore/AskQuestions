@@ -10,10 +10,14 @@ class Locale
 
     /**
      * Locale constructor.
-     * @param string $locale
+     * @param string|LanguageInterface $locale
      */
     public function __construct($locale)
     {
+        if (is_object($locale) && $locale instanceof LanguageInterface) {
+            $this->messages = $locale;
+            return;
+        }
         if (strlen($locale) === 2) {
             $locale = __NAMESPACE__ . '\\Lang' . ucwords($locale);
         }

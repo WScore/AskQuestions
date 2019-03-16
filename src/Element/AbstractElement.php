@@ -114,17 +114,21 @@ abstract class AbstractElement implements ElementInterface
      */
     public function addOption($value, $name = null)
     {
+        if (!mb_check_encoding($value, 'UTF-8')) {
+            throw new \InvalidArgumentException('value is not a valid UTF-8 string.');
+        }
         $this->options[$value] = $name ?: $value;
         return $this;
     }
 
     /**
      * @param string $message
-     * @return void|ElementInterface
+     * @return ElementInterface
      */
     public function setMessage($message)
     {
         $this->message = $message;
+        return $this;
     }
 
     /**

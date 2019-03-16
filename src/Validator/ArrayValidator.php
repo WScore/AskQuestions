@@ -45,6 +45,7 @@ class ArrayValidator
     {
         $value = [];
         foreach($raw_value as $v) {
+            if (!mb_check_encoding($v, 'UTF-8')) continue;
             $v = trim($v);
             if ($v) $value[] = $v;
         }

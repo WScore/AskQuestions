@@ -4,11 +4,26 @@ namespace WScore\Ask\Locale;
 
 class LangJa implements LanguageInterface
 {
-    private $messages = [
-        LanguageInterface::MESSAGE_REQUIRED => '必須項目です',
-        LanguageInterface::MESSAGE_NOT_AVAILABLE => '選択できない値が含まれています',
-        LanguageInterface::MESSAGE_NOT_SELECTABLE => '入力は選択できません',
-    ];
+    public static $msg_required = '必須項目です';
+    public static $msg_not_available = '選択できない値が含まれています';
+    public static $msg_not_selectable = '入力は選択できません';
+
+    /**
+     * @var string[]
+     */
+    private $messages = [];
+
+    /**
+     * LangJa constructor.
+     */
+    public function __construct()
+    {
+        $this->messages = [
+            LanguageInterface::MESSAGE_REQUIRED => self::$msg_required,
+            LanguageInterface::MESSAGE_NOT_AVAILABLE => self::$msg_not_available,
+            LanguageInterface::MESSAGE_NOT_SELECTABLE => self::$msg_not_selectable,
+        ];
+    }
 
     /**
      * @return string
