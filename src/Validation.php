@@ -126,6 +126,7 @@ class Validation
      */
     public function setError($name, $value, $message)
     {
+        $this->isValid = false;
         $element = isset($this->elements[$name]) ? $this->elements[$name]: null;
         $this->results[$name] = Result::fail($element, $value, $message);
         return $this;
